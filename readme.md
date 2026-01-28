@@ -71,7 +71,7 @@ Fluorescence extraction → Colocalization detection → Quantitative outputs
 
 An example visualization comparing the input structural channel and the predicted Cellpose instance masks (overlay):
 
-![Cellpose instance segmentation overlay](cell_results/test1_overlay_rgb.png)
+![Cellpose instance segmentation overlay](cell_results/test1_overlay_matplotlib.png)
 
 ---
 
