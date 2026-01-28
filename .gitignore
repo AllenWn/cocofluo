@@ -18,4 +18,4 @@ Fiji/
 # Optional: uncomment to keep repo lean (code only; add data separately)
 source_data/*.tif
 source_data/*.lif
-cell_results/
+cell_results/*.tif
