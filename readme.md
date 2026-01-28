@@ -1,6 +1,6 @@
 # 🧬 Cocofluo
 
-**Cocofluo** is an automated bioimage analysis pipeline for confocal microscopy images, designed to perform robust single-cell segmentation and enable downstream fluorescence analysis and colocalization detection.
+**Cocofluo** is an automated bioimage analysis pipeline for confocal microscopy images, designed to perform robust single-cell segmentation and enable downstream fluorescence detection and colocalization analysis.
 
 Cocofluo focuses on extracting reliable single-cell level information from large multi-channel confocal images, serving as the foundation for quantitative biological analysis.
 
@@ -8,7 +8,7 @@ Cocofluo focuses on extracting reliable single-cell level information from large
 
 ## 🔬 Project Overview
 
-Cocofluo targets confocal cell images that typically contain:
+Cocofluo targets confocal RNAscope images that typically contain:
 
 - A structural cell channel (cell body / nucleus)
 - Multiple fluorescence marker channels
