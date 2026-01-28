@@ -67,6 +67,14 @@ Fluorescence extraction → Colocalization detection → Quantitative outputs
 
 ---
 
+## 🖼️ Result Preview (Segmentation Overlay)
+
+An example visualization comparing the input structural channel and the predicted Cellpose instance masks (overlay):
+
+![Cellpose instance segmentation overlay](cell_results/test1_overlay_rgb.png)
+
+---
+
 ## 📄 License
 
 This project is for research and development purposes.  
