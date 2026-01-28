@@ -67,11 +67,18 @@ Fluorescence extraction → Colocalization detection → Quantitative outputs
 
 ---
 
-## 🖼️ Result Preview (Segmentation Overlay)
+## 🖼️ Result Preview 
 
+#### **Segmentation Overlay**
 An example visualization comparing the input structural channel and the predicted Cellpose instance masks (overlay):
 
 ![Cellpose instance segmentation overlay](cell_results/test1_overlay_matplotlib.png)
+
+#### **Marker Extraction**
+
+An example visualization comparing the raw fluorescence marker channel and its percentile-thresholded binary mask:
+
+![Marker extraction compare](cell_results/test1_marker_ch1_compare.png)
 
 ---
 
