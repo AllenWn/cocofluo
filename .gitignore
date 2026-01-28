@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+
+# Python / Jupyter
+__pycache__/
+*.py[cod]
+*.pyo
+.ipynb_checkpoints/
+*.egg-info/
+.eggs/
+venv/
+.venv/
+env/
+
+# Large third-party (Fiji)
+Fiji/
+
+# Optional: uncomment to keep repo lean (code only; add data separately)
+source_data/*.tif
+source_data/*.lif
+cell_results/
