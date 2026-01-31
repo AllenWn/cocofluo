@@ -1,88 +1,122 @@
 # 🧬 Cocofluo
 
-**Cocofluo** is an automated bioimage analysis pipeline for confocal microscopy images, designed to perform robust single-cell segmentation and enable downstream fluorescence detection and colocalization analysis.
-
-Cocofluo focuses on extracting reliable single-cell level information from large multi-channel confocal images, serving as the foundation for quantitative biological analysis.
+**Cocofluo** is an automated bioimage analysis pipeline for confocal microscopy images. It performs robust single-cell instance segmentation, fluorescence marker extraction, express-cell quantification, and colocalization analysis at the individual cell level.
 
 ---
 
 ## 🔬 Project Overview
 
-Cocofluo targets confocal RNAscope images that typically contain:
+Cocofluo targets confocal images (e.g. RNAscope) that typically contain:
 
-- A structural cell channel (cell body / nucleus)
-- Multiple fluorescence marker channels
+- A **structural cell channel** (cell body / nucleus)
+- Multiple **fluorescence marker channels**
 
-The current stage of the project focuses on:
+The pipeline treats **each cell as an independent analysis unit**:
 
-- Automatic instance segmentation of all cells in large confocal images  
-- Generating accurate cell masks as the spatial reference system  
-- Providing visualization and quality control tools  
-- Building the foundation for per-cell fluorescence analysis and colocalization
-
-In the next stages, Cocofluo will support:
-
-- Single-cell fluorescence quantification  
-- Marker overlap and colocalization detection  
-- Per-cell feature extraction and statistics  
-- End-to-end automated experimental pipelines  
+1. **Instance segmentation** — Identify every cell in the field of view
+2. **Marker extraction** — Binarize each fluorescence channel via percentile threshold
+3. **Express analysis** — A cell "expresses" a marker if marker-positive area / cell area ≥ threshold
+4. **Colocalization** — A cell colocalizes markers A & B if it expresses both; supports 2-way or 3-way groups
 
 ---
 
-## 🧠 Core Idea
+## 🚀 Quick Start
 
-Instead of treating the image as a whole, Cocofluo treats **each cell as an independent analysis unit**.
+```bash
+cd pipeline
+python main.py
+```
 
-All downstream fluorescence measurements and colocalization decisions are performed based on automatically segmented single-cell regions.
-
-This design allows Cocofluo to scale from raw microscopy images to structured single-cell level biological data.
+**Before running:**  
+- Place multi-channel TIFFs in `pipeline/source/`  
+- Adjust `pipeline/config.py` (DAPI channel, marker names, thresholds, etc.)
 
 ---
 
-## 🚧 Current Status
+## 📁 Directory Structure
 
-Cocofluo is under active development.  
-The current pipeline supports:
+```
+cocofluo/
+├── pipeline/
+│   ├── main.py           # Main pipeline entry
+│   ├── config.py         # All parameters
+│   ├── cocofluo.ipynb    # Exploratory notebook
+│   ├── source/           # Input TIFFs
+│   ├── result/           # report.csv
+│   └── sampling/         # QC images (every 10th file)
+├── cell_results/         # Notebook outputs (masks, overlays, etc.)
+└── readme.md
+```
 
-- Multi-channel confocal image loading  
-- Preprocessing and normalization  
-- Deep learning–based cell instance segmentation (Cellpose-based)  
-- Mask export and visualization for quality control  
+---
 
-Colocalization and quantitative analysis modules are under construction.
+## ⚙️ Configuration
+
+Edit `pipeline/config.py`:
+
+| Parameter | Description |
+|-----------|-------------|
+| `N_CHANNELS` | Number of channels |
+| `DAPI_CH` | Structural channel index (1-based) |
+| `CHANNEL_NAMES` | Display names per channel |
+| `MARKER_EXTRACT_PERCENTILE` | Top (100-P)% pixels = marker positive |
+| `MARKER_EXPRESS_THRESHOLD` | Express if marker_area/cell_area ≥ this |
+| `COLOCALIZATION_GROUPS` | e.g. `[(2,3), (2,4), (2,3,4)]` for 2-way and 3-way colocalization |
+
+---
+
+## 📊 Output
+
+### Report (`result/report.csv`)
+
+Each row = one image. Columns:
+
+- `file` — Image name (no extension)
+- `num_cells` — Total cells detected
+- `express_{marker}` — Count of cells expressing each marker
+- `coloc_{marker1}_{marker2}[_{marker3}]` — Count of cells expressing all markers in the group
+
+### Sampling QC (`sampling/`)
+
+Every 10 images, three comparison figures are saved:
+
+| File | Left panel | Right panel |
+|------|------------|-------------|
+| `{base}_cellseg_sampling.png` | Raw DAPI | Colored segmentation overlay |
+| `{base}_markerextract_{ch}_sampling.png` | Raw marker | Colored binary mask |
+| `{base}_express_{ch}_sampling.png` | Raw DAPI | Express cells highlighted |
+
+---
+
+## 🖼️ Result Preview
+
+### Segmentation Overlay
+
+Left: raw DAPI. Right: colored instance segmentation overlay.
+
+![Segmentation overlay](cell_results/test1_overlay_matplotlib.png)
+
+### Marker Extraction
+
+Left: raw fluorescence marker. Right: percentile-thresholded binary mask (colored).
+
+![Marker extraction](cell_results/test1_marker_ch1_compare.png)
+
+### Express Cells
+
+Left: raw DAPI. Right: express cells highlighted with colors (marker-positive area / cell area ≥ threshold).
+
+![Express cells](cell_results/test2_express_cells_thr15.png)
 
 ---
 
 ## 📌 Project Name
 
-Cocofluo = **Co**nfound + **Co**localization + **Fluo**rescence  
-A system designed for confocal fluorescence understanding.
-
----
-
-## 📷 Typical Workflow (Conceptual)
-
-Confocal image → Cell segmentation → Single-cell masks →  
-Fluorescence extraction → Colocalization detection → Quantitative outputs
-
----
-
-## 🖼️ Result Preview 
-
-#### **Segmentation Overlay**
-An example visualization comparing the input structural channel and the predicted Cellpose instance masks (overlay):
-
-![Cellpose instance segmentation overlay](cell_results/test1_overlay_matplotlib.png)
-
-#### **Marker Extraction**
-
-An example visualization comparing the raw fluorescence marker channel and its percentile-thresholded binary mask:
-
-![Marker extraction compare](cell_results/test1_marker_ch1_compare.png)
+**Cocofluo** = **Co**nfound + **Co**localization + **Fluo**rescence  
+A system for confocal fluorescence understanding.
 
 ---
 
 ## 📄 License
 
-This project is for research and development purposes.  
-License will be specified in future releases.
+Research and development use. License to be specified.
