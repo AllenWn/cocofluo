@@ -7,9 +7,9 @@ DAPI_CH = 1  # Structural channel index (1-based)
 
 CHANNEL_NAMES = {
     1: "dapi",
-    2: "cck",
+    2: "cas",
     3: "fos",
-    4: "cas",
+    4: "glp1r",
     5: "",
     6: "",
     7: "",
@@ -28,10 +28,9 @@ CELLPROB_THRESHOLD = 0.0
 
 MARKER_EXTRACT_PERCENTILE = 99.8  # Top (100-P)% pixels = positive;
 
-MARKER_EXPRESS_THRESHOLD = 0.10  # ratio of marker-positive area / cell area (10%)
+MARKER_EXPRESS_THRESHOLD = 0.07  # ratio of marker-positive area / cell area
 
 COLOCALIZATION_GROUPS = [
-    (2, 3),
     (2, 4),
     (3, 4),
     (2, 3, 4),

@@ -19,3 +19,4 @@ Fiji/
 source_data/*.tif
 source_data/*.lif
 cell_results/*.tif
+pipeline/source/*.tif
