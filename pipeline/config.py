@@ -29,10 +29,11 @@ CELLPROB_THRESHOLD = 0.0
 
 MARKER_EXTRACT_PERCENTILE = 99.8  # Top (100-P)% pixels = positive;
 
-MARKER_EXPRESS_THRESHOLD = 0.08  # ratio of marker-positive area / cell area
+MARKER_EXPRESS_THRESHOLD = 0.09  # ratio of marker-positive area / cell area
 
 COLOCALIZATION_GROUPS = [
     (3, 7),
+    (3, 9),
     (7, 9),
     (3, 7, 9),
 ]
